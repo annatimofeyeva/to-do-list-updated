@@ -4,7 +4,9 @@ public class Task {
   public Task(String description) {
     mDescription = description;
   }
-  public String getDescription()  {
+
+  public String getDescription() {
     return mDescription;
   }
+
 }

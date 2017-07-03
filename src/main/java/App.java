@@ -1,12 +1,13 @@
-import java.util.ArrayList;
 import java.util.Map;
 import java.util.HashMap;
+import java.util.List;
+import java.util.ArrayList;
 import spark.ModelAndView;
 import spark.template.velocity.VelocityTemplateEngine;
 import static spark.Spark.*;
 
 public class App {
-  public static void main(String[] args)  {
+  public static void main(String[] args) {
     staticFileLocation("/public");
     String layout = "templates/layout.vtl";
 
@@ -21,7 +22,7 @@ public class App {
       Map<String, Object> model = new HashMap<String, Object>();
 
       ArrayList<Task> tasks = request.session().attribute("tasks");
-      if (tasks == null)  {
+      if (tasks == null) {
         tasks = new ArrayList<Task>();
         request.session().attribute("tasks", tasks);
       }
@@ -32,7 +33,6 @@ public class App {
 
       model.put("template", "templates/success.vtl");
       return new ModelAndView(model, layout);
-    }, new VelocityTemplateEngine());
-
+     }, new VelocityTemplateEngine());
   }
 }
