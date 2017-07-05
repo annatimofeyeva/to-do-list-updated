@@ -39,8 +39,22 @@ public class TaskTest {
   @Test
   public void clear_emptiesAllTasksFromArrayList_0()  {
     Task myTask = new Task("Mow the lawn");
-    Task.clear();
+    Task.clear(); //Remember,the test will fail without this line! We need to empty leftover Tasks from previous tests!
     assertEquals(0, Task.all().size());
+  }
+
+  @Test
+  public void getId_tasksIstantiateWithAnID_1() {
+    Task.clear(); //Remember,the test will fail without this line! We need to empty leftover Tasks from previous tests!
+    Task myTask = new Task("Mow the lawn");
+    assertEquals(1, myTask.getId());
+  }
+
+  @Test
+  public void find_returnsTaskWithSameId_secondTask() {
+    Task firstTask = new Task("Mow the lawn");
+    Task secondTask = new Task("Buy groceries");
+    assertEquals(Task.find(secondTask.getId()), secondTask);
   }
 
 }
