@@ -19,15 +19,15 @@ public class TaskTest {
       con.createQuery(deleteCategoriesQuery).executeUpdate();
     }
   }
-  // @Test
-  // public void save_savesCategoryIdIntoDB_true() {
-  //   Category myCategory = new Category("Household chores");
-  //   myCategory.save();
-  //   Task myTask = new Task("Mow the lawn", myCategory.getId());
-  //   myTask.save();
-  //   Task savedTask = Task.find(myTask.getId());
-  //   assertEquals(savedTask.getCategoryId(), myCategory.getId());
-  // }
+  @Test
+  public void save_savesCategoryIdIntoDB_true() {
+    Category myCategory = new Category("Household chores");
+    myCategory.save();
+    Task myTask = new Task("Mow the lawn", myCategory.getId());
+    myTask.save();
+    Task savedTask = Task.find(myTask.getId());
+    assertEquals(savedTask.getCategoryId(), myCategory.getId());
+  }
 
   @Test
   public void Task_instantiatesCorrectly_true() {
