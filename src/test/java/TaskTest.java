@@ -100,4 +100,12 @@ public class TaskTest {
     Task savedTask = Task.all().get(0);
     assertEquals(myTask.getId(), savedTask.getId());
   }
+
+  @Test
+  public void update_updatesTaskDescription_true() {
+    Task myTask = new Task("Mow the lawn", 1);
+    myTask.save();
+    myTask.update("Take a nap");
+    assertEquals("Take a nap", Task.find(myTask.getId()).getDescription());
+  }
 }
