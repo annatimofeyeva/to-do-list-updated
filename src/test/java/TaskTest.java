@@ -1,22 +1,12 @@
 import org.sql2o.*;
-import java.time.LocalDateTime;
 import org.junit.*;
 import static org.junit.Assert.*;
+import java.time.LocalDateTime;
 
 public class TaskTest {
 
   @Rule
   public DatabaseRule database = new DatabaseRule();
-  
-  @Test
-  public void save_savesCategoryIdIntoDB_true() {
-    Category myCategory = new Category("Household chores");
-    myCategory.save();
-    Task myTask = new Task("Mow the lawn", myCategory.getId());
-    myTask.save();
-    Task savedTask = Task.find(myTask.getId());
-    assertEquals(savedTask.getCategoryId(), myCategory.getId());
-  }
 
   @Test
   public void Task_instantiatesCorrectly_true() {
@@ -43,7 +33,23 @@ public class TaskTest {
   }
 
   @Test
-  public void getId_tasksInstantiateWithAnID() {
+  public void all_returnsAllInstancesOfTask_true() {
+    Task firstTask = new Task("Mow the lawn", 1);
+    firstTask.save();
+    Task secondTask = new Task("Buy groceries", 1);
+    secondTask.save();
+    assertEquals(true, Task.all().get(0).equals(firstTask));
+    assertEquals(true, Task.all().get(1).equals(secondTask));
+  }
+
+  @Test
+  public void clear_emptiesAllTasksFromArrayList_0() {
+    Task myTask = new Task("Mow the lawn", 1);
+    assertEquals(Task.all().size(), 0);
+  }
+
+  @Test
+  public void getId_tasksInstantiateWithAnID_1() {
     Task myTask = new Task("Mow the lawn", 1);
     myTask.save();
     assertTrue(myTask.getId() > 0);
@@ -73,21 +79,21 @@ public class TaskTest {
   }
 
   @Test
-  public void all_returnsAllInstancesOfTask_true() {
-    Task firstTask = new Task("Mow the lawn", 1);
-    firstTask.save();
-    Task secondTask = new Task("Buy groceries", 1);
-    secondTask.save();
-    assertEquals(true, Task.all().get(0).equals(firstTask));
-    assertEquals(true, Task.all().get(1).equals(secondTask));
-  }
-
-  @Test
   public void save_assignsIdToObject() {
     Task myTask = new Task("Mow the lawn", 1);
     myTask.save();
     Task savedTask = Task.all().get(0);
     assertEquals(myTask.getId(), savedTask.getId());
+  }
+
+  @Test
+  public void save_savesCategoryIdIntoDB_true() {
+    Category myCategory = new Category("Household chores");
+    myCategory.save();
+    Task myTask = new Task("Mow the lawn", myCategory.getId());
+    myTask.save();
+    Task savedTask = Task.find(myTask.getId());
+    assertEquals(savedTask.getCategoryId(), myCategory.getId());
   }
 
   @Test
@@ -106,4 +112,5 @@ public class TaskTest {
     myTask.delete();
     assertEquals(null, Task.find(myTaskId));
   }
+
 }
